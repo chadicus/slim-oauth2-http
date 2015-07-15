@@ -44,6 +44,41 @@ final class MessageBridgeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Verify behavior of newOAuth2Request() with application/json content type
+     *
+     * @test
+     * @covers ::newOAuth2Request
+     *
+     * @return void
+     */
+    public function newOAuth2RequestJsonContentType()
+    {
+        $json = json_encode(
+            [
+                'foo' => 'bar',
+                'abc' => '123',
+            ]
+        );
+        $env = \Slim\Environment::mock(
+            [
+                'REQUEST_METHOD' => 'POST',
+                'slim.input' => $json,
+                'CONTENT_LENGTH' => strlen($json),
+                'CONTENT_TYPE' => 'application/json',
+            ]
+        );
+
+        $slimRequest = new \Slim\Http\Request($env);
+
+        $oauth2Request = MessageBridge::newOauth2Request($slimRequest);
+
+        $this->assertSame(strlen($json), $oauth2Request->headers('Content-Length'));
+        $this->assertSame('application/json', $oauth2Request->headers('Content-Type'));
+        $this->assertSame('bar', $oauth2Request->request('foo'));
+        $this->assertSame('123', $oauth2Request->request('abc'));
+    }
+
+    /**
      * Verify basic behavior of mapResponse()
      *
      * @test

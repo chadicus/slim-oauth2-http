@@ -12,9 +12,17 @@ class MessageBridge
      */
     public static function newOauth2Request(\Slim\Http\Request $request)
     {
+        $post = $request->post();
+        if (substr_count($request->headers()->get('Content-Type'), '/json')) {
+            $post = $request->getBody();
+            if (is_string($post)) {
+                $post = json_decode($post, true);
+            }
+        }
+
         return new \OAuth2\Request(
             $request->get(),
-            $request->post(),
+            $post,
             [],
             $request->cookies()->getIterator()->getArrayCopy(),
             [],
