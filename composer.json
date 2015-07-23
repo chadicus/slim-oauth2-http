@@ -25,5 +25,9 @@
     },
     "autoload-dev": {
         "psr-4": {"ChadicusTest\\Slim\\OAuth2\\Http\\" : "tests"}
+    },
+    "suggest": {
+        "chadicus/slim-oauth2-routes": "Offers standard OAuth2 routes for slim applications",
+        "chadicus/slim-oauth2-middleware": "Adds OAuth2 middleware for API requests."
     }
 }
