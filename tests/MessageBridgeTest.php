@@ -105,4 +105,31 @@ final class MessageBridgeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(json_encode(['foo' => 'bar', 'abc' => '123']), $slimResponse->getBody());
     }
+
+    /**
+     * Verify behavior of newOAuth2Request() with application/json content type and empty body
+     *
+     * @test
+     * @covers ::newOAuth2Request
+     *
+     * @return void
+     */
+    public function newOAuth2RequestJsonContentTypeEmptyBody()
+    {
+        $env = \Slim\Environment::mock(
+            [
+                'REQUEST_METHOD' => 'POST',
+                'slim.input' => '',
+                'CONTENT_LENGTH' => 0,
+                'CONTENT_TYPE' => 'application/json',
+            ]
+        );
+
+        $slimRequest = new \Slim\Http\Request($env);
+
+        $oauth2Request = MessageBridge::newOauth2Request($slimRequest);
+
+        $this->assertSame(0, $oauth2Request->headers('Content-Length'));
+        $this->assertSame('application/json', $oauth2Request->headers('Content-Type'));
+    }
 }
