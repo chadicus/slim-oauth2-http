@@ -16,7 +16,7 @@ class MessageBridge
         if (substr_count($request->headers()->get('Content-Type'), '/json')) {
             $post = $request->getBody();
             if (is_string($post)) {
-                $post = json_decode($post, true);
+                $post = json_decode($post, true) ?: [];
             }
         }
 
