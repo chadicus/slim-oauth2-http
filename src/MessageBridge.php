@@ -35,12 +35,12 @@ class MessageBridge
     /**
      * Copies values from the given \Oauth2\Response to the given \Slim\Http\Response.
      *
-     * @param \OAuth2\Response    $oauth2Response The OAuth2 server response.
-     * @param \Slim\Http\Response $slimResponse   The slim framework response.
+     * @param \OAuth2\ResponseInterface $oauth2Response The OAuth2 server response.
+     * @param \Slim\Http\Response       $slimResponse   The slim framework response.
      *
      * @return void
      */
-    public static function mapResponse(\OAuth2\Response $oauth2Response, \Slim\Http\Response $slimResponse)
+    public static function mapResponse(\OAuth2\ResponseInterface $oauth2Response, \Slim\Http\Response $slimResponse)
     {
         foreach ($oauth2Response->getHttpHeaders() as $key => $value) {
             $slimResponse->headers->set($key, $value);
