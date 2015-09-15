@@ -3,9 +3,13 @@
 [![Build Status](http://img.shields.io/travis/chadicus/slim-oauth2-http.svg?style=flat)](https://travis-ci.org/chadicus/slim-oauth2-http)
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/chadicus/slim-oauth2-http.svg?style=flat)](https://scrutinizer-ci.com/g/chadicus/slim-oauth2-http/)
 [![Code Coverage](https://coveralls.io/repos/chadicus/slim-oauth2-routes/badge.svg?branch=master&service=github)](https://coveralls.io/github/chadicus/slim-oauth2-routes?branch=master)
+
 [![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/slim-oauth2-http.svg?style=flat)](https://packagist.org/packages/chadicus/slim-oauth2-http)
 [![Total Downloads](http://img.shields.io/packagist/dt/chadicus/slim-oauth2-http.svg?style=flat)](https://packagist.org/packages/chadicus/slim-oauth2-http)
 [![License](http://img.shields.io/packagist/l/chadicus/slim-oauth2-http.svg?style=flat)](https://packagist.org/packages/chadicus/slim-oauth2-http)
+
+[![Dependency Status](https://www.versioneye.com/user/projects/55b9070f65376200200012d8/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b9070f65376200200012d8)
+
 [![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://chadicus.github.io/slim-oauth2-http)
 
 Library of classes to be used for bridging http requests/responses messages.
