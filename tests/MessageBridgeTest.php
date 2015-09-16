@@ -132,4 +132,41 @@ final class MessageBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $oauth2Request->headers('Content-Length'));
         $this->assertSame('application/json', $oauth2Request->headers('Content-Type'));
     }
+
+    /**
+     * Verify behavior of replacing bad header key names
+     *
+     * @test
+     * @covers ::newOAuth2Request
+     *
+     * @return void
+     */
+    public function newOAuth2RequestHeaderKeyNames()
+    {
+        $env = \Slim\Environment::mock(
+            [
+                'REQUEST_METHOD' => 'POST',
+                'QUERY_STRING' => 'one=1&two=2&three=3',
+                'slim.input' => 'foo=bar&abc=123',
+                'CONTENT_TYPE' => 'application/x-www-form-urlencoded',
+                'CONTENT_LENGTH' => 15,
+                'PHP_AUTH_USER' => 'test_client_id',
+                'PHP_AUTH_PW' => 'test_secret'
+            ]
+        );
+
+        $slimRequest = new \Slim\Http\Request($env);
+
+        $oauth2Request = MessageBridge::newOauth2Request($slimRequest);
+
+        $this->assertSame(15, $oauth2Request->headers('Content-Length'));
+        $this->assertSame('application/x-www-form-urlencoded', $oauth2Request->headers('Content-Type'));
+        $this->assertSame('123', $oauth2Request->request('abc'));
+        $this->assertSame('2', $oauth2Request->query('two'));
+        $this->assertSame('test_client_id', $oauth2Request->headers('PHP_AUTH_USER'));
+        $this->assertSame('test_secret', $oauth2Request->headers('PHP_AUTH_PW'));
+        $this->assertNull($oauth2Request->headers('Php-Auth-User'));
+        $this->assertNull($oauth2Request->headers('Php-Auth-Pw'));
+
+    }
 }

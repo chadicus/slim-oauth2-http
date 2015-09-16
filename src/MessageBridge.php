@@ -28,7 +28,7 @@ class MessageBridge
             [],
             \Slim\Environment::getInstance()->getIterator()->getArrayCopy(),
             $request->getBody(),
-            $request->headers()->getIterator()->getArrayCopy()
+            self::cleanupHeaders($request->headers())
         );
     }
 
@@ -48,5 +48,36 @@ class MessageBridge
 
         $slimResponse->status($oauth2Response->getStatusCode());
         $slimResponse->setBody($oauth2Response->getResponseBody());
+    }
+
+    /**
+     * Helper method to clean header keys.
+     *
+     * Slim will convert all headers to Camel-Case style. There are certain headers such as PHP_AUTH_USER that the
+     * OAuth2 library requires CAPS_CASE format. This method will adjust those headers as needed.
+     *
+     * @param Slim\Http\Headers $uncleanHeaders The headers to be cleaned.
+     *
+     * @return array The cleaned headers
+     */
+    private static function cleanupHeaders(\Slim\Http\Headers $uncleanHeaders)
+    {
+        $cleanHeaders = [];
+        $headerMap = [
+            'Php-Auth-User' => 'PHP_AUTH_USER',
+            'Php-Auth-Pw' => 'PHP_AUTH_PW',
+            'Php-Auth-Digest' => 'PHP_AUTH_DIGEST',
+            'Auth-Type' => 'AUTH_TYPE',
+        ];
+        foreach ($uncleanHeaders as $key => $value) {
+            if (!array_key_exists($key, $headerMap)) {
+                $cleanHeaders[$key] = $value;
+                continue;
+            }
+
+            $cleanHeaders[$headerMap[$key]] = $value;
+        }
+
+        return $cleanHeaders;
     }
 }
