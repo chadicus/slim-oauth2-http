@@ -20,6 +20,18 @@ class MessageBridge
             }
         }
 
+        $headers = $request->headers()->getIterator()->getArrayCopy();
+        // Fixing bad headers from Slim
+        $badHeaders = ['Php-Auth-User','Php-Auth-Pw','Php-Auth-Digest','Auth-Type'];
+        $goodHeaders = ['PHP_AUTH_USER','PHP_AUTH_PW','PHP_AUTH_DIGEST','AUTH_TYPE'];
+
+        foreach($badHeaders as $key => $badHeaderName) {
+            if(array_key_exists($badHeaderName,$headers)) {
+                $headers[$goodHeaders[$key]] = $headers[$badHeaderName];
+                unset($headers[$badHeaderName]);
+            }
+        }
+
         return new \OAuth2\Request(
             $request->get(),
             $post,
@@ -28,7 +40,7 @@ class MessageBridge
             [],
             \Slim\Environment::getInstance()->getIterator()->getArrayCopy(),
             $request->getBody(),
-            $request->headers()->getIterator()->getArrayCopy()
+            $headers
         );
     }
 
