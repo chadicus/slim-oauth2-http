@@ -25,8 +25,8 @@ class MessageBridge
         $badHeaders = ['Php-Auth-User','Php-Auth-Pw','Php-Auth-Digest','Auth-Type'];
         $goodHeaders = ['PHP_AUTH_USER','PHP_AUTH_PW','PHP_AUTH_DIGEST','AUTH_TYPE'];
 
-        foreach($badHeaders as $key => $badHeaderName) {
-            if(array_key_exists($badHeaderName,$headers)) {
+        foreach ($badHeaders as $key => $badHeaderName) {
+            if (array_key_exists($badHeaderName,$headers)) {
                 $headers[$goodHeaders[$key]] = $headers[$badHeaderName];
                 unset($headers[$badHeaderName]);
             }
