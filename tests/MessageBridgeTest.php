@@ -163,8 +163,8 @@ final class MessageBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('application/x-www-form-urlencoded', $oauth2Request->headers('Content-Type'));
         $this->assertSame('123', $oauth2Request->request('abc'));
         $this->assertSame('2', $oauth2Request->query('two'));
-        $this->assertSame('test_client_id',$oauth2Request->headers('PHP_AUTH_USER'));
-        $this->assertSame('test_secret',$oauth2Request->headers('PHP_AUTH_PW'));
+        $this->assertSame('test_client_id', $oauth2Request->headers('PHP_AUTH_USER'));
+        $this->assertSame('test_secret', $oauth2Request->headers('PHP_AUTH_PW'));
         $this->assertNull($oauth2Request->headers('Php-Auth-User'));
         $this->assertNull($oauth2Request->headers('Php-Auth-Pw'));
 
