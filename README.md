@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/chadicus/slim-oauth2-http.svg?style=flat)](https://travis-ci.org/chadicus/slim-oauth2-http)
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/chadicus/slim-oauth2-http.svg?style=flat)](https://scrutinizer-ci.com/g/chadicus/slim-oauth2-http/)
-[![Code Coverage](https://coveralls.io/repos/chadicus/slim-oauth2-routes/badge.svg?branch=master&service=github)](https://coveralls.io/github/chadicus/slim-oauth2-routes?branch=master)
+[![Code Coverage](https://coveralls.io/repos/chadicus/slim-oauth2-http/badge.svg?branch=master&service=github)](https://coveralls.io/github/chadicus/slim-oauth2-http?branch=master)
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/chadicus/slim-oauth2-http.svg?style=flat)](https://packagist.org/packages/chadicus/slim-oauth2-http)
 [![Total Downloads](http://img.shields.io/packagist/dt/chadicus/slim-oauth2-http.svg?style=flat)](https://packagist.org/packages/chadicus/slim-oauth2-http)
