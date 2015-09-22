@@ -10,7 +10,7 @@
 
 [![Dependency Status](https://www.versioneye.com/user/projects/55b9070f65376200200012d8/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b9070f65376200200012d8)
 
-[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://chadicus.github.io/slim-oauth2-http)
+[![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://pholiophp.org/chadicus/slim-oauth2-http)
 
 Library of classes to be used for bridging http requests/responses messages.
 
