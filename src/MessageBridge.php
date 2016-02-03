@@ -1,6 +1,9 @@
 <?php
 namespace Chadicus\Slim\OAuth2\Http;
 
+/**
+ * Static utility class for bridging Slim Requests/Response to OAuth2 Requests/Response.
+ */
 class MessageBridge
 {
     /**
@@ -56,7 +59,7 @@ class MessageBridge
      * Slim will convert all headers to Camel-Case style. There are certain headers such as PHP_AUTH_USER that the
      * OAuth2 library requires CAPS_CASE format. This method will adjust those headers as needed.
      *
-     * @param Slim\Http\Headers $uncleanHeaders The headers to be cleaned.
+     * @param \Slim\Http\Headers $uncleanHeaders The headers to be cleaned.
      *
      * @return array The cleaned headers
      */
