@@ -19,7 +19,7 @@ Library of classes to be used for bridging http requests/responses messages.
 
 ## Requirements
 
-Chadicus\Slim\OAuth2\Http requires PHP 5.4 (or later).
+Chadicus\Slim\OAuth2\Http requires PHP 5.5 (or later).
 
 ##Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
