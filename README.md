@@ -45,4 +45,33 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 ```sh
 ./composer install
 ./vendor/bin/phpunit
+```
 
+##Example Usage
+
+###Simple route for creating a new oauth2 access token
+```php
+use Chadicus\Slim\OAuth2\Http\MessageBridge;
+use OAuth2;
+use Slim;
+
+$server = new OAuth2\Server();
+//...
+// configure the OAuth2 Server
+
+$app = new Slim\Slim();
+//...
+// configure the OAuth2 Server
+
+$app->post('/token', function () use ($app, $server) {
+    //create an \OAuth2\Request from the current \Slim\Http\Request Object
+    $oauth2Request = MessageBridge::newOAuth2Request($app->request());
+
+    //Allow the oauth2 server instance to handle the oauth2 request
+    $oauth2Response = $server->handleTokenRequest($oauth2Request),
+
+    //Map the oauth2 response into the slim response
+    MessageBridge::mapResponse($oauth2Response, $app->response());
+});
+
+```
