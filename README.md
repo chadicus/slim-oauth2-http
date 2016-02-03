@@ -56,12 +56,12 @@ use OAuth2;
 use Slim;
 
 $server = new OAuth2\Server();
-//...
 // configure the OAuth2 Server
+//...
 
 $app = new Slim\Slim();
+// configure the Slim Application
 //...
-// configure the OAuth2 Server
 
 $app->post('/token', function () use ($app, $server) {
     //create an \OAuth2\Request from the current \Slim\Http\Request Object
