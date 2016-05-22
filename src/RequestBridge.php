@@ -63,9 +63,9 @@ class RequestBridge
     }
 
     /**
-     * Convert a PSR-7 uploaded files structure to a $_FILES structure
+     * Convert a PSR-7 uploaded files structure to a $_FILES structure.
      *
-     * @param \Psr\Http\Message\UploadedFileInterface[]
+     * @param \Psr\Http\Message\UploadedFileInterface[] $uploadedFiles Array of file objects.
      *
      * @return array
      */

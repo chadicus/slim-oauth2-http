@@ -14,15 +14,15 @@ class ResponseBridge
     /**
      * Copies values from the given Oauth2\Response to a Slim Response.
      *
-     * @param OAuth2\ResponseInterface $oauth2Response The OAuth2 server response.
+     * @param OAuth2\Response $oauth2Response The OAuth2 server response.
      *
      * @return Response
      */
-    final public static function fromOauth2(OAuth2\ResponseInterface $oauth2Response)
+    final public static function fromOauth2(OAuth2\Response $oauth2Response)
     {
         $headers = new Headers();
         foreach ($oauth2Response->getHttpHeaders() as $key => $value) {
-            $headers->set($key, explode(', ', $value));
+            $headers->add($key, explode(', ', $value));
         }
 
         $body = new Stream(fopen('php://temp', 'r'));
