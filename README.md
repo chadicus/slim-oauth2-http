@@ -15,11 +15,12 @@
 
 [![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://pholiophp.org/chadicus/slim-oauth2-http)
 
-Library of classes to be used for bridging http requests/responses messages.
+Static utilitiy classes to bridge [Slim 3](http://www.slimframework.com/) http messages to [OAuth2](http://bshaffer.github.io/oauth2-server-php-docs/) requests and responses. While this
+libray is entended for use with Slim 3, it should work with any PSR-7 compatible framework.
 
 ## Requirements
 
-Chadicus\Slim\OAuth2\Http requires PHP 5.5 (or later).
+Chadicus\Slim\OAuth2\Http requires PHP 5.6 (or later).
 
 ##Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
@@ -28,7 +29,7 @@ To add the library as a local, per-project dependency use [Composer](http://getc
 ```json
 {
     "require": {
-        "chadicus/slim-oauth2-http": "~1.0"
+        "chadicus/slim-oauth2-http": "~3.0"
     }
 }
 ```
@@ -47,31 +48,65 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 ./vendor/bin/phpunit
 ```
 
-##Example Usage
+##Available Operations
+
+###Convert a PSR-7 request to an OAuth2 request
+```php
+use Chadicus\Slim\OAuth2\Http\RequestBridge;
+
+$oauth2Request = RequestBridge::toOAuth2($psrRequest);
+```
+
+###Convert an OAuth2 response to a PSR-7 response.
+```php
+use Chadicus\Slim\OAuth2\Http\ResponseBridge;
+
+$psr7Response = ResponseBridge::fromOAuth2($oauth2Request);
+```
+
+##Example Integeration
 
 ###Simple route for creating a new oauth2 access token
 ```php
-use Chadicus\Slim\OAuth2\Http\MessageBridge;
+use Chadicus\Slim\OAuth2\Http\RequestBridge;
+use Chadicus\Slim\OAuth2\Http\ResponseBridge;
 use OAuth2;
+use OAuth2\GrantType;
+use OAuth2\Storage;
 use Slim;
 
-$server = new OAuth2\Server();
-// configure the OAuth2 Server
-//...
+$storage = new Storage\Memory(
+    [
+        'client_credentials' => [
+            'testClientId' => [
+                'client_id' => 'testClientId',
+                'client_secret' => 'testClientSecret',
+            ],
+        ],
+    ]
+);
 
-$app = new Slim\Slim();
-// configure the Slim Application
-//...
+$server = new OAuth2\Server(
+    $storage,
+    [
+        'access_lifetime' => 3600,
+    ],
+    [
+        new GrantType\ClientCredentials($storage),
+    ]
+);
 
-$app->post('/token', function () use ($app, $server) {
+$app = new Slim\App();
+
+$app->post('/token', function ($psrRequest, $psrResponse, array $args) use ($app, $server) {
     //create an \OAuth2\Request from the current \Slim\Http\Request Object
-    $oauth2Request = MessageBridge::newOAuth2Request($app->request());
+    $oauth2Request = RequestBridge::toOAuth2($psrRequest);
 
     //Allow the oauth2 server instance to handle the oauth2 request
     $oauth2Response = $server->handleTokenRequest($oauth2Request),
 
     //Map the oauth2 response into the slim response
-    MessageBridge::mapResponse($oauth2Response, $app->response());
+    return ResponseBridge::fromOAuth2($oauth2Response);
 });
 
 ```
