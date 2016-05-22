@@ -158,4 +158,26 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($oauth2Request->headers('Php-Auth-User'));
         $this->assertNull($oauth2Request->headers('Php-Auth-Pw'));
     }
+
+    /**
+     * Verify behavior of PSR-7 request with Authorization header.
+     *
+     * @test
+     * @covers ::toOAuth2
+     *
+     * @return void
+     */
+    public function toOAuth2WithAuthorization()
+    {
+        $uri = Uri::createFromString('https://example.com/foos');
+
+        $headers = new Headers();
+        $headers->add('HTTP_AUTHORIZATION', 'Bearer abc123');
+
+        $slimRequest = new Request('GET', $uri, $headers, [], [], new RequestBody());
+
+        $oauth2Request = RequestBridge::toOAuth2($slimRequest);
+
+        $this->assertSame('Bearer abc123', $oauth2Request->headers('AUTHORIZATION'));
+    }
 }
