@@ -49,6 +49,7 @@ class RequestBridge
             'Php-Auth-Pw' => 'PHP_AUTH_PW',
             'Php-Auth-Digest' => 'PHP_AUTH_DIGEST',
             'Auth-Type' => 'AUTH_TYPE',
+            'HTTP_AUTHORIZATION' => 'AUTHORIZATION',
         ];
 
         foreach ($uncleanHeaders as $key => $value) {
