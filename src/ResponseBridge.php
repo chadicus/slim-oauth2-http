@@ -25,13 +25,13 @@ class ResponseBridge
             $headers->add($key, explode(', ', $value));
         }
 
-        $body = new Stream(fopen('php://temp', 'r'));
+        $stream = fopen('php://temp', 'r+');
         if (!empty($oauth2Response->getParameters())) {
-            $stream = fopen('php://memory','r+');
             fwrite($stream, $oauth2Response->getResponseBody());
             rewind($stream);
-            $body = new Stream($stream);
         }
+
+        $body = new Stream($stream);
 
         return new Response($oauth2Response->getStatusCode(), $headers, $body);
     }
