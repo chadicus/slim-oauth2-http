@@ -78,4 +78,37 @@ final class ResponseBridgeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('', (string)$slimResponse->getBody());
     }
+
+    /**
+     * Verify response can be written to when empty.
+     *
+     * @test
+     * @covers ::fromOAuth2
+     *
+     * @return void
+     */
+    public function fromOAuth2WritableEmptyBody()
+    {
+        $oauth2Response =  new Response(
+            [],
+            204,
+            ['Content-Type' => 'application/json']
+        );
+
+        $slimResponse = ResponseBridge::fromOAuth2($oauth2Response);
+
+        $slimResponse->getBody()->write('I was here');
+
+        $this->assertSame(204, $slimResponse->getStatusCode());
+        $this->assertSame(
+            [
+                'Content-Type' => [
+                    'application/json',
+                ],
+            ],
+            $slimResponse->getHeaders()
+        );
+
+        $this->assertSame('I was here', (string)$slimResponse->getBody());
+    }
 }
