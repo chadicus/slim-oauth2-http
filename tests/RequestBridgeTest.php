@@ -3,12 +3,12 @@
 namespace ChadicusTest\Slim\OAuth2\Http;
 
 use Chadicus\Slim\OAuth2\Http\RequestBridge;
-use Slim\Http\Environment;
+use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\UploadedFile;
 use Slim\Http\Headers;
 use Slim\Http\Request;
 use Slim\Http\RequestBody;
 use Slim\Http\Stream;
-use Slim\Http\UploadedFile;
 use Slim\Http\Uri;
 
 /**
@@ -29,12 +29,12 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
      */
     public function toOAuth2()
     {
-        $uri = Uri::createFromString('https://example.com/foo/bar?baz=bat');
+        $uri = 'https://example.com/foo/bar';
 
-        $headers = new Headers();
-        $headers->add('Host', 'example.com');
-        $headers->add('Accept', 'application/json');
-        $headers->add('Accept', 'text/json');
+        $headers = [
+            'Host' => ['example.com'],
+            'Accept' => ['application/json', 'text/json'],
+        ];
 
         $cookies = [
             'PHPSESSID' => uniqid(),
@@ -55,21 +55,20 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
         $stream = fopen('php://memory','r+');
         fwrite($stream, $json);
         rewind($stream);
-        $body = new Stream($stream);
 
         $files = [
             'foo' => new UploadedFile(
                 __FILE__,
-                'foo.txt',
-                'text/plain',
                 100,
-                UPLOAD_ERR_OK
+                UPLOAD_ERR_OK,
+                'foo.txt',
+                'text/plain'
             ),
         ];
 
-        $slimRequest = new Request('PATCH', $uri, $headers, $cookies, $server, $body, $files);
+        $psr7Request = new ServerRequest($server, $files, $uri, 'PATCH', $stream, $headers, $cookies, ['baz' => 'bat']);
 
-        $oauth2Request = RequestBridge::toOauth2($slimRequest);
+        $oauth2Request = RequestBridge::toOauth2($psr7Request);
 
         $this->assertInstanceOf('\OAuth2\Request', $oauth2Request);
         $this->assertSame('bat', $oauth2Request->query('baz'));
@@ -105,27 +104,23 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
      */
     public function toOAuth2JsonContentType()
     {
-        $uri = Uri::createFromString('https://example.com/foos');
+        $uri = 'https://example.com/foos';
 
-        $json = json_encode(
-            [
-                'foo' => 'bar',
-                'abc' => '123',
-            ]
-        );
+        $data = ['foo' => 'bar', 'abc' => '123'];
 
+        $json = json_encode($data);
         $stream = fopen('php://memory','r+');
         fwrite($stream, $json);
         rewind($stream);
-        $body = new Stream($stream);
 
-        $headers = new Headers();
-        $headers->add('Content-Type', 'application/json');
-        $headers->add('Content-Length', strlen($json));
+        $headers = [
+            'Content-Type' => ['application/json'],
+            'Content-Length' => [strlen($json)],
+        ];
 
-        $slimRequest = new Request('POST', $uri, $headers, [], [], $body, []);
+        $psr7Request = new ServerRequest([], [], $uri, 'POST', $stream, $headers, [], [], $data);
 
-        $oauth2Request = RequestBridge::toOAuth2($slimRequest);
+        $oauth2Request = RequestBridge::toOAuth2($psr7Request);
 
         $this->assertSame((string)strlen($json), $oauth2Request->headers('Content-Length'));
         $this->assertSame('application/json', $oauth2Request->headers('Content-Type'));
@@ -143,15 +138,16 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
      */
     public function toOAuth2HeaderKeyNames()
     {
-        $uri = Uri::createFromString('https://example.com/foos');
+        $uri = 'https://example.com/foos';
 
-        $headers = new Headers();
-        $headers->add('Php-Auth-User', 'test_client_id');
-        $headers->add('Php-Auth-Pw', 'test_secret');
+        $headers = [
+            'Php-Auth-User' => ['test_client_id'],
+            'Php-Auth-Pw' => ['test_secret'],
+        ];
 
-        $slimRequest = new Request('GET', $uri, $headers, [], [], new RequestBody());
+        $psr7Request = new ServerRequest([], [], $uri, 'GET', 'php://input', $headers);
 
-        $oauth2Request = RequestBridge::toOAuth2($slimRequest);
+        $oauth2Request = RequestBridge::toOAuth2($psr7Request);
 
         $this->assertSame('test_client_id', $oauth2Request->headers('PHP_AUTH_USER'));
         $this->assertSame('test_secret', $oauth2Request->headers('PHP_AUTH_PW'));
@@ -169,14 +165,13 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
      */
     public function toOAuth2WithAuthorization()
     {
-        $uri = Uri::createFromString('https://example.com/foos');
+        $uri = 'https://example.com/foos';
 
-        $headers = new Headers();
-        $headers->add('HTTP_AUTHORIZATION', 'Bearer abc123');
+        $headers = ['HTTP_AUTHORIZATION' => ['Bearer abc123']];
 
-        $slimRequest = new Request('GET', $uri, $headers, [], [], new RequestBody());
+        $psr7Request = new ServerRequest([], [], $uri, 'GET', 'php://input', $headers);
 
-        $oauth2Request = RequestBridge::toOAuth2($slimRequest);
+        $oauth2Request = RequestBridge::toOAuth2($psr7Request);
 
         $this->assertSame('Bearer abc123', $oauth2Request->headers('AUTHORIZATION'));
     }

@@ -20,7 +20,7 @@ class RequestBridge
     {
         return new OAuth2\Request(
             (array)$request->getQueryParams(),
-            $request->isPost() ? (array)$request->getParsedBody() : [],
+            (array)$request->getParsedBody(),
             $request->getAttributes(),
             $request->getCookieParams(),
             self::convertUploadedFiles($request->getUploadedFiles()),
