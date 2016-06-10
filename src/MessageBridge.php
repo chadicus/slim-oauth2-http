@@ -71,7 +71,9 @@ class MessageBridge
             'Php-Auth-Pw' => 'PHP_AUTH_PW',
             'Php-Auth-Digest' => 'PHP_AUTH_DIGEST',
             'Auth-Type' => 'AUTH_TYPE',
+            'HTTP_AUTHORIZATION' => 'AUTHORIZATION',
         ];
+
         foreach ($uncleanHeaders as $key => $value) {
             if (!array_key_exists($key, $headerMap)) {
                 $cleanHeaders[$key] = $value;
