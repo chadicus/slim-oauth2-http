@@ -1,10 +1,9 @@
 <?php
 namespace Chadicus\Slim\OAuth2\Http;
 
-use Slim\Http\Headers;
-use Slim\Http\Response;
-use Slim\Http\Stream;
 use OAuth2;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
  * Static utility class for bridging OAuth2 responses to PSR-7 responses.
@@ -20,9 +19,9 @@ class ResponseBridge
      */
     final public static function fromOauth2(OAuth2\Response $oauth2Response)
     {
-        $headers = new Headers();
+        $headers = [];
         foreach ($oauth2Response->getHttpHeaders() as $key => $value) {
-            $headers->add($key, explode(', ', $value));
+            $headers[$key] = explode(', ', $value);
         }
 
         $stream = fopen('php://temp', 'r+');
@@ -31,8 +30,6 @@ class ResponseBridge
             rewind($stream);
         }
 
-        $body = new Stream($stream);
-
-        return new Response($oauth2Response->getStatusCode(), $headers, $body);
+        return new Response(new Stream($stream), $oauth2Response->getStatusCode(), $headers);
     }
 }
