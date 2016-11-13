@@ -26,12 +26,8 @@ Chadicus\Slim\OAuth2\Http requires PHP 5.6 (or later).
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
 `chadicus/slim-oauth2-http` to your project's `composer.json` file such as:
 
-```json
-{
-    "require": {
-        "chadicus/slim-oauth2-http": "~3.0"
-    }
-}
+```sh
+composer require chadicus/slim-oauth2-http
 ```
 
 ##Contact
