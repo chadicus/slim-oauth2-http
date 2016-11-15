@@ -13,11 +13,11 @@ class ResponseBridge
     /**
      * Copies values from the given Oauth2\Response to a PSR-7 Http Response.
      *
-     * @param OAuth2\Response $oauth2Response The OAuth2 server response.
+     * @param OAuth2\ResponseInterface $oauth2Response The OAuth2 server response.
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    final public static function fromOauth2(OAuth2\Response $oauth2Response)
+    final public static function fromOauth2(OAuth2\ResponseInterface $oauth2Response)
     {
         $headers = [];
         foreach ($oauth2Response->getHttpHeaders() as $key => $value) {
