@@ -11,11 +11,11 @@ use Zend\Diactoros\Stream;
 class ResponseBridge
 {
     /**
-     * Copies values from the given Oauth2\Response to a Slim Response.
+     * Copies values from the given Oauth2\Response to a PSR-7 Http Response.
      *
      * @param OAuth2\Response $oauth2Response The OAuth2 server response.
      *
-     * @return Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
     final public static function fromOauth2(OAuth2\Response $oauth2Response)
     {
