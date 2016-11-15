@@ -5,11 +5,6 @@ namespace ChadicusTest\Slim\OAuth2\Http;
 use Chadicus\Slim\OAuth2\Http\RequestBridge;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\UploadedFile;
-use Slim\Http\Headers;
-use Slim\Http\Request;
-use Slim\Http\RequestBody;
-use Slim\Http\Stream;
-use Slim\Http\Uri;
 
 /**
  * Unit tests for the \Chadicus\Slim\OAuth2\Http\RequestBridge class.
