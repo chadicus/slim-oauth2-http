@@ -4,6 +4,7 @@
 [![Code Quality](https://scrutinizer-ci.com/g/chadicus/slim-oauth2-http/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadicus/slim-oauth2-http/?branch=master)
 [![Code Coverage](https://coveralls.io/repos/github/chadicus/slim-oauth2-http/badge.svg?branch=master)](https://coveralls.io/github/chadicus/slim-oauth2-http?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/584459fdb1c38c0aa1cd471b/badge.svg?style=flat)](https://www.versioneye.com/user/projects/584459fdb1c38c0aa1cd471b)
+[![Reference Status](https://www.versioneye.com/php/chadicus:slim-oauth2-http/reference_badge.svg?style=flat)](https://www.versioneye.com/php/chadicus:slim-oauth2-http/references)
 
 [![Latest Stable Version](https://poser.pugx.org/chadicus/slim-oauth2-http/v/stable)](https://packagist.org/packages/chadicus/slim-oauth2-http)
 [![Latest Unstable Version](https://poser.pugx.org/chadicus/slim-oauth2-http/v/unstable)](https://packagist.org/packages/chadicus/slim-oauth2-http)
