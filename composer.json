@@ -1,7 +1,7 @@
 {
     "name": "chadicus/slim-oauth2-http",
     "description": "Bridge components for slim and oauth2 http messages.",
-    "keywords": ["slim", "oauth2", "http", "message"],
+    "keywords": ["slim", "oauth2", "http", "message", "psr7", "request", "response", "bridge"],
     "authors": [
         {
             "name": "Chad Gray",
