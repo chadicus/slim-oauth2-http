@@ -16,16 +16,14 @@
 
 [![Documentation](https://img.shields.io/badge/reference-phpdoc-blue.svg?style=flat)](http://pholiophp.org/chadicus/slim-oauth2-http)
 
-Static utilitiy classes to bridge [Slim 3](http://www.slimframework.com/) http messages to [OAuth2](http://bshaffer.github.io/oauth2-server-php-docs/) requests and responses. While this
-libray is entended for use with Slim 3, it should work with any PSR-7 compatible framework.
+Static utilitiy classes to bridge [PSR-7](http://www.php-fig.org/psr/psr-7/) http messages to [OAuth2 Server](http://bshaffer.github.io/oauth2-server-php-docs/) requests and responses. While this libray is entended for use with [Slim 3](http://www.slimframework.com/), it should work with any PSR-7 compatible framework.
 
 ## Requirements
 
 Chadicus\Slim\OAuth2\Http requires PHP 5.6 (or later).
 
 ##Composer
-To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on
-`chadicus/slim-oauth2-http` to your project's `composer.json` file such as:
+To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on `chadicus/slim-oauth2-http` to your project's `composer.json` file such as:
 
 ```sh
 composer require chadicus/slim-oauth2-http
@@ -41,8 +39,9 @@ Developers may be contacted at:
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
-./composer install
+composer install
 ./vendor/bin/phpunit
+./vendor/bin/phpcs --standard=./vendor/chadicus/coding-standard/Chadicus -n src
 ```
 
 ##Available Operations
