@@ -29,13 +29,13 @@ To add the library as a local, per-project dependency use [Composer](http://getc
 composer require chadicus/slim-oauth2-http
 ```
 
-##Contact
+## ontact
 Developers may be contacted at:
 
  * [Pull Requests](https://github.com/chadicus/slim-oauth2-http/pulls)
  * [Issues](https://github.com/chadicus/slim-oauth2-http/issues)
 
-##Project Build
+## Project Build
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
@@ -44,25 +44,25 @@ composer install
 ./vendor/bin/phpcs --standard=./vendor/chadicus/coding-standard/Chadicus -n src
 ```
 
-##Available Operations
+## Available Operations
 
-###Convert a PSR-7 request to an OAuth2 request
+### Convert a PSR-7 request to an OAuth2 request
 ```php
 use Chadicus\Slim\OAuth2\Http\RequestBridge;
 
 $oauth2Request = RequestBridge::toOAuth2($psrRequest);
 ```
 
-###Convert an OAuth2 response to a PSR-7 response.
+### Convert an OAuth2 response to a PSR-7 response.
 ```php
 use Chadicus\Slim\OAuth2\Http\ResponseBridge;
 
 $psr7Response = ResponseBridge::fromOAuth2($oauth2Request);
 ```
 
-##Example Integeration
+## Example Integeration
 
-###Simple route for creating a new oauth2 access token
+### Simple route for creating a new oauth2 access token
 ```php
 use Chadicus\Slim\OAuth2\Http\RequestBridge;
 use Chadicus\Slim\OAuth2\Http\ResponseBridge;
