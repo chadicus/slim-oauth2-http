@@ -2,6 +2,7 @@
 namespace Chadicus\Slim\OAuth2\Http;
 
 use OAuth2;
+use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
 
@@ -15,9 +16,9 @@ class ResponseBridge
      *
      * @param OAuth2\Response $oauth2Response The OAuth2 server response.
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    final public static function fromOauth2(OAuth2\Response $oauth2Response)
+    final public static function fromOauth2(OAuth2\Response $oauth2Response) : ResponseInterface
     {
         $headers = [];
         foreach ($oauth2Response->getHttpHeaders() as $key => $value) {

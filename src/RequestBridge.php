@@ -16,7 +16,7 @@ class RequestBridge
      *
      * @return OAuth2\Request
      */
-    final public static function toOAuth2(ServerRequestInterface $request)
+    final public static function toOAuth2(ServerRequestInterface $request) : OAuth2\Request
     {
         $contents = $request->getBody()->getContents();
         $request->getBody()->rewind();
@@ -44,7 +44,7 @@ class RequestBridge
      *
      * @return array The cleaned headers
      */
-    private static function cleanupHeaders(array $uncleanHeaders = [])
+    private static function cleanupHeaders(array $uncleanHeaders = []) : array
     {
         $cleanHeaders = [];
         $headerMap = [
@@ -73,7 +73,7 @@ class RequestBridge
      *
      * @return array
      */
-    private static function convertUploadedFiles(array $uploadedFiles)
+    private static function convertUploadedFiles(array $uploadedFiles) : array
     {
         $files = [];
         foreach ($uploadedFiles as $name => $upload) {
