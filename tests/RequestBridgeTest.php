@@ -3,6 +3,7 @@
 namespace ChadicusTest\Slim\OAuth2\Http;
 
 use Chadicus\Slim\OAuth2\Http\RequestBridge;
+use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\UploadedFile;
 
@@ -12,7 +13,7 @@ use Zend\Diactoros\UploadedFile;
  * @coversDefaultClass \Chadicus\Slim\OAuth2\Http\RequestBridge
  * @covers ::<private>
  */
-final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
+final class RequestBridgeTest extends TestCase
 {
     /**
      * Verify basic behavior of toOAuth2()
