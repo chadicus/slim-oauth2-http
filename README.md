@@ -41,7 +41,7 @@ With a checkout of the code get [Composer](http://getcomposer.org) in your PATH 
 ```sh
 composer install
 ./vendor/bin/phpunit
-./vendor/bin/phpcs --standard=./vendor/chadicus/coding-standard/Chadicus -n src
+./vendor/bin/phpcs
 ```
 
 ## Available Operations
