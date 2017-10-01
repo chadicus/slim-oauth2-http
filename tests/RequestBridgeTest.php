@@ -47,7 +47,7 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $stream = fopen('php://memory','r+');
+        $stream = fopen('php://memory', 'r+');
         fwrite($stream, $json);
         rewind($stream);
 
@@ -104,7 +104,7 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
         $data = ['foo' => 'bar', 'abc' => '123'];
 
         $json = json_encode($data);
-        $stream = fopen('php://memory','r+');
+        $stream = fopen('php://memory', 'r+');
         fwrite($stream, $json);
         rewind($stream);
 
