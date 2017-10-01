@@ -25,29 +25,12 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
     public function toOAuth2()
     {
         $uri = 'https://example.com/foo/bar';
+        $headers = ['Host' => ['example.com'], 'Accept' => ['application/json', 'text/json']];
+        $cookies = ['PHPSESSID' => uniqid()];
+        $server = ['SCRIPT_NAME'     => __FILE__, 'SCRIPT_FILENAME' => __FILE__];
+        $json = json_encode(['foo' => 'bar', 'abc' => '123']);
 
-        $headers = [
-            'Host' => ['example.com'],
-            'Accept' => ['application/json', 'text/json'],
-        ];
-
-        $cookies = [
-            'PHPSESSID' => uniqid(),
-        ];
-
-        $server = [
-            'SCRIPT_NAME'     => __FILE__,
-            'SCRIPT_FILENAME' => __FILE__,
-        ];
-
-        $json = json_encode(
-            [
-                'foo' => 'bar',
-                'abc' => '123',
-            ]
-        );
-
-        $stream = fopen('php://memory','r+');
+        $stream = fopen('php://memory', 'r+');
         fwrite($stream, $json);
         rewind($stream);
 
@@ -104,7 +87,7 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
         $data = ['foo' => 'bar', 'abc' => '123'];
 
         $json = json_encode($data);
-        $stream = fopen('php://memory','r+');
+        $stream = fopen('php://memory', 'r+');
         fwrite($stream, $json);
         rewind($stream);
 
