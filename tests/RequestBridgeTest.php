@@ -153,4 +153,26 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('Bearer abc123', $oauth2Request->headers('AUTHORIZATION'));
     }
+
+    /**
+     * Verify behavior of PSR-7 request with Authorization header.
+     *
+     * @test
+     * @covers ::toOAuth2
+     *
+     * @return void
+     */
+    public function toOAuth2WithUserAndPassword()
+    {
+        $uri = 'https://example.com/foos';
+
+        $headers = ['Authorization' => ['Bearer '.base64_encode('client_id:client_pass')]];
+
+        $psr7Request = new ServerRequest([], [], $uri, 'GET', 'php://input', $headers);
+
+        $oauth2Request = RequestBridge::toOAuth2($psr7Request);
+
+        $this->assertEquals('client_id', $oauth2Request->headers('PHP_AUTH_USER'));
+        $this->assertEquals('client_pass ', $oauth2Request->headers('PHP_AUTH_PW'));
+    }
 }
