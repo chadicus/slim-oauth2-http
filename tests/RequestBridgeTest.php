@@ -170,8 +170,7 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
 
         $oauth2Request = RequestBridge::toOAuth2($psr7Request);
 
-	    $this->assertSame('foo', $psr7Request->getBody()->getContents());
-	    $this->assertSame('foo', $oauth2Request->getContent());
+        $this->assertSame('foo', $psr7Request->getBody()->getContents());
+        $this->assertSame('foo', $oauth2Request->getContent());
     }
-
 }

@@ -19,8 +19,8 @@ class RequestBridge
     final public static function toOAuth2(ServerRequestInterface $request)
     {
         $contents = $request->getBody()->getContents();
-    	$request->getBody()->rewind();
-        
+        $request->getBody()->rewind();
+
         return new OAuth2\Request(
             (array)$request->getQueryParams(),
             (array)$request->getParsedBody(),
