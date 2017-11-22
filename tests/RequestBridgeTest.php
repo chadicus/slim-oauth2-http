@@ -166,7 +166,11 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
     {
         $uri = 'https://example.com/foos';
 
-        $psr7Request = new ServerRequest([], [], $uri, 'POST', fopen(__DIR__ . '/_data/foo', 'r'));
+        $temp = tmpfile();
+        fwrite($temp, 'foo');
+        rewind($temp);
+
+        $psr7Request = new ServerRequest([], [], $uri, 'POST', $temp);
 
         $oauth2Request = RequestBridge::toOAuth2($psr7Request);
 
