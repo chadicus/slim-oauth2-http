@@ -153,4 +153,25 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('Bearer abc123', $oauth2Request->headers('AUTHORIZATION'));
     }
+
+    /**
+     * Verify that steam contents of a passed request is preserved (read and rewound).
+     *
+     * @test
+     * @covers ::toOAuth2
+     *
+     * @return void
+     */
+    public function toOAuth2BodyContentsOfRequestPreserved()
+    {
+        $uri = 'https://example.com/foos';
+
+        $psr7Request = new ServerRequest([], [], $uri, 'POST', fopen(__DIR__ . '/_data/foo', 'r'));
+
+        $oauth2Request = RequestBridge::toOAuth2($psr7Request);
+
+	    $this->assertSame('foo', $psr7Request->getBody()->getContents());
+	    $this->assertSame('foo', $oauth2Request->getContent());
+    }
+
 }
