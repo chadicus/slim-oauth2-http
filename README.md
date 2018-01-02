@@ -22,14 +22,14 @@ Static utilitiy classes to bridge [PSR-7](http://www.php-fig.org/psr/psr-7/) htt
 
 Chadicus\Slim\OAuth2\Http requires PHP 5.6 (or later).
 
-##Composer
+## Composer
 To add the library as a local, per-project dependency use [Composer](http://getcomposer.org)! Simply add a dependency on `chadicus/slim-oauth2-http` to your project's `composer.json` file such as:
 
 ```sh
 composer require chadicus/slim-oauth2-http
 ```
 
-## ontact
+## Contact
 Developers may be contacted at:
 
  * [Pull Requests](https://github.com/chadicus/slim-oauth2-http/pulls)
