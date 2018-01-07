@@ -20,7 +20,6 @@
     },
     "require-dev": {
         "chadicus/coding-standard": "^1.3",
-        "humbug/humbug": "1.0.0-alpha2",
         "php-coveralls/php-coveralls": "^1.0",
         "phpunit/phpunit": "^5.7"
     },
