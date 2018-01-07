@@ -6,9 +6,9 @@ php:
   - 7.2
   - hhvm
 env:
-  matrix:
-      - PREFER_LOWEST="--prefer-lowest --prefer-stable"
-      - PREFER_LOWEST=""
+  - PREFER_LOWEST="--prefer-lowest --prefer-stable"
+  - PREFER_LOWEST=""
+matrix:
   fast_finish: true
   allow_failures:
      - php: hhvm
