@@ -19,10 +19,10 @@
         "sort-packages": true
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.5",
         "chadicus/coding-standard": "^1.2",
         "humbug/humbug": "1.0.0-alpha2",
-        "php-coveralls/php-coveralls": "^1.0"
+        "php-coveralls/php-coveralls": "^1.0",
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
         "psr-4": {"Chadicus\\Slim\\OAuth2\\Http\\" : "src"}
