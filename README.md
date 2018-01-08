@@ -42,6 +42,9 @@ composer install
 ./vendor/bin/phpcs
 ```
 
+## Community
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/slim-oauth2/Lobby#)
+
 ## Available Operations
 
 ### Convert a PSR-7 request to an OAuth2 request
