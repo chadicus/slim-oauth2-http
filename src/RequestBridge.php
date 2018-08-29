@@ -2,6 +2,7 @@
 namespace Chadicus\Slim\OAuth2\Http;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UploadedFileInterface;
 use OAuth2;
 
 /**
@@ -69,23 +70,36 @@ class RequestBridge
     /**
      * Convert a PSR-7 uploaded files structure to a $_FILES structure.
      *
-     * @param \Psr\Http\Message\UploadedFileInterface[] $uploadedFiles Array of file objects.
+     * @param array $uploadedFiles Array of file objects.
      *
      * @return array
      */
     private static function convertUploadedFiles(array $uploadedFiles)
     {
         $files = [];
-        foreach ($uploadedFiles as $name => $upload) {
-            $files[$name] = [
-                'name' => $upload->getClientFilename(),
-                'type' => $upload->getClientMediaType(),
-                'size' => $upload->getSize(),
-                'tmp_name' => $upload->getStream()->getMetadata('uri'),
-                'error' => $upload->getError(),
-            ];
+        foreach ($uploadedFiles as $name => $uploadedFile) {
+            if (!is_array($uploadedFile)) {
+                $files[$name] = self::convertUploadedFile($uploadedFile);
+                continue;
+            }
+
+            $files[$name] = [];
+            foreach ($uploadedFile as $file) {
+                $files[$name][] = self::convertUploadedFile($file);
+            }
         }
 
         return $files;
+    }
+
+    private static function convertUploadedFile(UploadedFileInterface $uploadedFile)
+    {
+        return [
+            'name' => $uploadedFile->getClientFilename(),
+            'type' => $uploadedFile->getClientMediaType(),
+            'size' => $uploadedFile->getSize(),
+            'tmp_name' => $uploadedFile->getStream()->getMetadata('uri'),
+            'error' => $uploadedFile->getError(),
+        ];
     }
 }

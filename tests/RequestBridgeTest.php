@@ -177,4 +177,57 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('foo', $psr7Request->getBody()->getContents());
         $this->assertSame('foo', $oauth2Request->getContent());
     }
+
+    /**
+     * @test
+     * @covers ::toOAuth2
+     *
+     * @return void
+     */
+    public function toOAuth2WithMultipleFiles()
+    {
+        $files = [
+            'multi' => [
+                new UploadedFile(
+                    __FILE__,
+                    100,
+                    UPLOAD_ERR_OK,
+                    'foo1.txt',
+                    'text/plain'
+                ),
+                new UploadedFile(
+                    __FILE__,
+                    100,
+                    UPLOAD_ERR_OK,
+                    'foo2.txt',
+                    'text/plain'
+                ),
+            ],
+        ];
+
+        $psr7Request = (new ServerRequest())->withUploadedFiles($files);
+        $oauth2Request = RequestBridge::toOauth2($psr7Request);
+
+        $this->assertSame(
+            [
+                'multi' => [
+                    [
+                        'name' => 'foo1.txt',
+                        'type' => 'text/plain',
+                        'size' => 100,
+                        'tmp_name' => __FILE__,
+                        'error' => UPLOAD_ERR_OK,
+                    ],
+                    [
+                        'name' => 'foo2.txt',
+                        'type' => 'text/plain',
+                        'size' => 100,
+                        'tmp_name' => __FILE__,
+                        'error' => UPLOAD_ERR_OK,
+                    ],
+                ],
+            ],
+            $oauth2Request->files
+        );
+    }
 }
