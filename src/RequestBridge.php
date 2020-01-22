@@ -28,7 +28,7 @@ class RequestBridge
             $request->getAttributes(),
             $request->getCookieParams(),
             self::convertUploadedFiles($request->getUploadedFiles()),
-            $request->getServerParams(),
+            array_merge($request->getServerParams(), ['REQUEST_METHOD' => $request->getMethod()]),
             $contents,
             self::cleanupHeaders($request->getHeaders())
         );
