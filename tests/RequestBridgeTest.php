@@ -230,4 +230,24 @@ final class RequestBridgeTest extends \PHPUnit_Framework_TestCase
             $oauth2Request->files
         );
     }
+
+    /**
+     * Verify that sets request method.
+     *
+     * @test
+     * @covers ::toOAuth2
+     *
+     * @return void
+     */
+    public function toOAuth2RequestMethodPreserved()
+    {
+        $uri = 'https://example.com/foos';
+
+        $psr7Request = new ServerRequest([], [], $uri, 'POST', 'php://input');
+
+        $oauth2Request = RequestBridge::toOAuth2($psr7Request);
+
+        $this->assertSame('POST', $psr7Request->getMethod());
+        $this->assertSame('POST', $oauth2Request->server('REQUEST_METHOD'));
+    }
 }
