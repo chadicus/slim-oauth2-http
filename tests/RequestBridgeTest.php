@@ -3,8 +3,8 @@
 namespace ChadicusTest\Slim\OAuth2\Http;
 
 use Chadicus\Slim\OAuth2\Http\RequestBridge;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\UploadedFile;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\UploadedFile;
 use PHPUnit\Framework\TestCase;
 
 /**

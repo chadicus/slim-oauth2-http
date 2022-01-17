@@ -2,8 +2,8 @@
 namespace Chadicus\Slim\OAuth2\Http;
 
 use OAuth2;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Stream;
 
 /**
  * Static utility class for bridging OAuth2 responses to PSR-7 responses.
