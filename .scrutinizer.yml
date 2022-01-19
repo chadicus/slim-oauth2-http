@@ -3,10 +3,6 @@ filter:
         - 'vendor/*'
 before_commands:
     - 'composer install --prefer-source'
-build:
-    tests:
-        override:
-            - phpcs-run --standard=./vendor/chadicus/coding-standard/Chadicus/ruleset.xml
 tools:
     php_analyzer: true
     php_mess_detector: true
