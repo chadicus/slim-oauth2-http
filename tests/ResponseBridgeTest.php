@@ -4,6 +4,7 @@ namespace ChadicusTest\Slim\OAuth2\Http;
 
 use Chadicus\Slim\OAuth2\Http\ResponseBridge;
 use OAuth2\Response;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for the \Chadicus\Slim\OAuth2\Http\ResponseBridge class.
@@ -11,7 +12,7 @@ use OAuth2\Response;
  * @coversDefaultClass \Chadicus\Slim\OAuth2\Http\ResponseBridge
  * @covers ::<private>
  */
-final class ResponseBridgeTest extends \PHPUnit_Framework_TestCase
+final class ResponseBridgeTest extends TestCase
 {
     /**
      * Verify basic behavior of fromOAuth2()
