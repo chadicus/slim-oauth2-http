@@ -2,13 +2,6 @@
     "name": "chadicus/slim-oauth2-http",
     "description": "Bridge components for PSR-7 and bshaffer's OAuth2 Server http messages.",
     "keywords": ["slim", "oauth2", "http", "message", "psr7", "request", "response", "bridge"],
-    "authors": [
-        {
-            "name": "Chad Gray",
-            "email": "chadwickgray@gmail.com",
-            "role": "Developer"
-        }
-    ],
     "license": "MIT",
     "require": {
         "php": "^5.6 || ^7.0 || ^8.0",
