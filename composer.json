@@ -20,7 +20,6 @@
     },
     "require-dev": {
         "chadicus/coding-standard": "^1.3",
-        "php-coveralls/php-coveralls": "^1.0",
         "phpunit/phpunit": "^5.7"
     },
     "autoload": {
@@ -32,5 +31,9 @@
     "suggest": {
         "chadicus/slim-oauth2-routes": "Offers standard OAuth2 routes for slim applications",
         "chadicus/slim-oauth2-middleware": "Adds OAuth2 middleware for API requests."
+    },
+    "scripts": {
+        "lint": "vendor/bin/phpcs",
+        "test": "vendor/bin/phpunit"
     }
 }
