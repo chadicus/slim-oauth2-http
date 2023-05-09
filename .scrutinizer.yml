@@ -3,13 +3,12 @@ filter:
         - 'vendor/*'
 before_commands:
     - 'composer install --prefer-source'
-build:
-    tests:
-        override:
-            - phpcs-run --standard=./vendor/chadicus/coding-standard/Chadicus/ruleset.xml
 tools:
     php_analyzer: true
     php_mess_detector: true
+    php_code_sniffer:
+        config:
+            standard: PSR2
     sensiolabs_security_checker: true
     php_loc:
         excluded_dirs:
